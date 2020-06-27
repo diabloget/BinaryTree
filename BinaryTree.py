@@ -56,10 +56,8 @@ class BinaryTree:
                 queue.append(temp.right)
                 
         if (contentnode):  
-            x = temp.content
             self.deleteDeepest(base, temp) 
-            contentnode = x
-            
+             
         return base
 
 #Search
@@ -79,10 +77,10 @@ class BinaryTree:
 #la posición en memoria de dicho nodo para eliminarlo.
     
     def deletion(self, content):
-        self.deleteDeepest(self.root, self.search(content))
+        self.delete_deepest(self.root, self.search(content))
 
 #Método de eliminación.
-    def deleteDeepest(self, base, delnode): 
+    def delete_deepest(self, base, delnode): 
         queue = [base] 
         
         while(len(queue)): 
@@ -107,31 +105,31 @@ class BinaryTree:
             
 #Mostrar todo el árbol en orden.
 
-    def showTree(self):
-        self.showT_aux(self.root)
+    def showtree(self):
+        self.show_aux(self.root)
         
-    def showT_aux(self, base):
+    def show_aux(self, base):
         if(base.left):
-            self.showT_aux(base.left)
+            self.show_aux(base.left)
         print(base.content)
         if(base.right):
-            self.showT_aux(base.right)
+            self.show_aux(base.right)
 
 #Encontrar el Máximo
             
-    def findMax(self):
+    def findmax(self):
         if(self.root is None):
             return None
         else:
-            return self.findMax_aux(self.root)
+            return self.findmax_aux(self.root)
         
-    def findMax_aux(self, base):
+    def findmax_aux(self, base):
         if (base is None):  
             return float('-inf') 
   
         res = base.content 
-        lres = self.findMax_aux(base.left)
-        rres = self.findMax_aux(base.right)
+        lres = self.findmax_aux(base.left)
+        rres = self.findmax_aux(base.right)
         if (lres > res): 
             res = lres  
         if (rres > res):  
@@ -140,50 +138,50 @@ class BinaryTree:
 
 #Encontrar el mínimo
     
-    def findMin(self):
+    def findmin(self):
         if(self.root is None):
             return None
         else:
-            return self.findMin_aux(self.root).content
+            return self.findmin_aux(self.root).content
 
-    def findMin_aux(self, base):
+    def findmin_aux(self, base):
         if(base.left is None):
             return base
         else:
-            return self.findMin_aux(base.left)
+            return self.findmin_aux(base.left)
 
 #Hacer impreso del árbol InOrder
 
-    def printInOrder(self):
-        self.printInO_aux(self.root)
+    def printinorder(self):
+        self.printino_aux(self.root)
 
-    def printInO_aux(self, base):
+    def printino_aux(self, base):
         if(base):
-            self.printInO_aux(base.left)
+            self.printino_aux(base.left)
             print(base.content)
-            self.printInO_aux(base.right)
+            self.printino_aux(base.right)
 
 #Hacer impreso del árbol PostOrder
             
-    def printPostOrder(self):
-        self.printPostO_aux(self.root)
+    def printpostorder(self):
+        self.printposto_aux(self.root)
             
-    def printPostO_aux(self, base):
+    def printposto_aux(self, base):
         if(base):
-            self.printPostO_aux(base.left)
-            self.printPostO_aux(base.right)
+            self.printposto_aux(base.left)
+            self.printposto_aux(base.right)
             print(base.content)
 
 #Hacer impreso del árbol PreOrder
             
-    def printPreOrder(self):
-        self.printPreO_aux(self.root)
+    def printpreorder(self):
+        self.printpreo_aux(self.root)
             
-    def printPreO_aux(self, base):
+    def printpreo_aux(self, base):
         if(base != None):
             print(base.content)
-            self.printPreO_aux(base.left)
-            self.printPreO_aux(base.right)
+            self.printpreo_aux(base.left)
+            self.printpreo_aux(base.right)
 
 #Clase Nodo
 class Node:
@@ -198,23 +196,24 @@ a1.insert(12)
 a1.insert(6)
 a1.insert(14)
 a1.insert(3)
-a1.showTree()
+a1.showtree()
 
 
-print("El mayor es: " + str(a1.findMax()))
-print("El menor es: " + str(a1.findMin()))
+print("El mayor es: " + str(a1.findmax()))
+print("El menor es: " + str(a1.findmin()))
 
 print("Impreso In Order: ")
-a1.printInOrder()
+a1.printinorder()
 print("Impreso Post Order: ")
-a1.printPostOrder()
+a1.printpostorder()
 print("Impreso Pre Order: ")
-a1.printPreOrder()
+a1.printpreorder()
 #print(a1.root.left.content)
 a1.deletion(14)
 #a1.deleteDeepest(a1.root, a1.root.left)
 print("Impreso In Order despues de eliminar el nodo con valor 6: ")
-a1.printInOrder()
+a1.printinorder()
+
 
         
 
