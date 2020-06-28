@@ -1,3 +1,9 @@
+import unittest
+loader = unittest.TestLoader()
+tests = loader.discover(".")
+testRunner = unittest.runner.TextTestRunner()
+testRunner.run(tests)
+
 #Clase Árbol Binario
 
 class BinaryTree:
@@ -25,40 +31,6 @@ class BinaryTree:
                     self.insert_aux(content, base.right)  
         else:
             base.content = content
-
-#Eliminar nodo en árbol.
-    def deletion(self, content):
-        self.deletion_aux(self.root, content)
-        
-    def deletion_aux(self, base, content): 
-        if (base is None): 
-            return None
-        
-        if (base.left is None and base.right is None): 
-            if (base.content is content):  
-                return None
-            else: 
-                return base
-            
-        contentnode = None
-        queue = [base] 
-        
-        while(len(queue)): 
-            temp = queue.pop(0)
-            
-            if (temp.content is content): 
-                contentnode = temp
-                
-            if (temp.left): 
-                queue.append(temp.left)
-                
-            if (temp.right): 
-                queue.append(temp.right)
-                
-        if (contentnode):  
-            self.deleteDeepest(base, temp) 
-             
-        return base
 
 #Search
     def search(self, content):
@@ -118,7 +90,7 @@ class BinaryTree:
 #Encontrar el Máximo
             
     def findmax(self):
-        if(self.root is None):
+        if(self.root.content is None):
             return None
         else:
             return self.findmax_aux(self.root)
@@ -139,7 +111,7 @@ class BinaryTree:
 #Encontrar el mínimo
     
     def findmin(self):
-        if(self.root is None):
+        if(self.root.content is None):
             return None
         else:
             return self.findmin_aux(self.root).content
@@ -190,32 +162,58 @@ class Node:
         self.left = None
         self.content = None
 
+class TestRoot(unittest.TestCase):
+    def test_sum(self):
+        a1 = BinaryTree()
 
-a1 = BinaryTree()
-a1.insert(12)
-a1.insert(6)
-a1.insert(14)
-a1.insert(3)
-a1.showtree()
+        self.assertEqual(a1.findmin(), None)
+        self.assertEqual(a1.findmax(), None)
 
+        a1.insert(12)
+        a1.insert(6)
+        a1.insert(3)
+        a1.insert(7)
+        a1.insert(14)
+        a1.showtree()
+        
+        print("El mayor es: " + str(a1.findmax()))
+        print("El menor es: " + str(a1.findmin()))
+        print("Probando busqueda del nodo 14" + str(a1.search(14)))
+        
+        a1.printinorder()
+        
+        a1.printpostorder()
+        
+        a1.printpreorder()
 
-print("El mayor es: " + str(a1.findmax()))
-print("El menor es: " + str(a1.findmin()))
+        self.assertEqual(a1.findmin(), 3)
+        self.assertEqual(a1.findmax(), 14)
 
-print("Impreso In Order: ")
-a1.printinorder()
-print("Impreso Post Order: ")
-a1.printpostorder()
-print("Impreso Pre Order: ")
-a1.printpreorder()
-#print(a1.root.left.content)
-a1.deletion(14)
-#a1.deleteDeepest(a1.root, a1.root.left)
-print("Impreso In Order despues de eliminar el nodo con valor 6: ")
-a1.printinorder()
+        a1.deletion(14)
+        self.assertEqual(a1.root.right, None)
+        self.assertEqual(a1.findmax(), 12)
+        
+        a1.deletion(7)
+        self.assertEqual(a1.root.left.right, None)
+        a1.deletion(3)
+        self.assertEqual(a1.root.left.left, None)
+        a1.deletion(6)
+        a1.insert(10)
+        a1.insert(2)
+        self.assertEqual(a1.findmin(), 2)
+        self.assertEqual(a1.search(10).content, 10)
+        a1.deletion(12)
 
-
+        a2 = BinaryTree()
+        a2.insert(12)
+        a2.insert(15)
+        a2.insert(16)
+        a2.deletion(16)
+        a2.printpreorder
+        self.assertEqual(a2.findmax(), 15)
+        
         
 
-    
-        
+
+if __name__ == '__main__':
+    unittest.main()
