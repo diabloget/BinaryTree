@@ -209,7 +209,6 @@ class TestRoot(unittest.TestCase):
         a2.insert(15)
         a2.insert(16)
         a2.deletion(16)
-        a2.printpreorder
         self.assertEqual(a2.findmax(), 15)
         
         
